@@ -30,6 +30,7 @@ be used, see the [IoT Gateway repository](https://github.com/PeterWaher/IoTGatew
 | [Waher.Networking](https://www.nuget.org/packages/Waher.Networking/)               | Tools for working with communication, including troubleshooting. Include nugets named `Waher.Networking.*` if you need support for specific communication protocols. |
 | [Waher.Runtime.Inventory](https://www.nuget.org/packages/Waher.Runtime.Inventory/) | Maintains an inventory of type definitions in the runtime environment, and permits easy instantiation of suitable classes, and inversion of control (IoC). |
 | [Waher.Runtime.Settings](https://www.nuget.org/packages/Waher.Runtime.Settings/)   | Provides easy access to persistent settings. |
+| [Waher.Security](https://www.nuget.org/packages/Waher.Security/)                   | Basic encryption-related tools. |
 
 Installable Package
 ----------------------

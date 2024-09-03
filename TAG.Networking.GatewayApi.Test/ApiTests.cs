@@ -43,6 +43,7 @@ namespace TAG.Networking.GatewayApi.Test
 			//
 			// await RuntimeSettings.SetAsync("GatewayAPI.Key", "");	// Enter Value here
 			// await RuntimeSettings.SetAsync("GatewayAPI.Secret", "");	// Enter Value here
+			// await RuntimeSettings.SetAsync("GatewayAPI.Token", "");	// Enter Value here
 
 			Assert.IsTrue(await Types.StartAllModules(60000));
 		}
@@ -55,7 +56,7 @@ namespace TAG.Networking.GatewayApi.Test
 			filesProvider?.Dispose();
 			filesProvider = null;
 
-			if (!(consoleEventSink is null))
+			if (consoleEventSink is not null)
 			{
 				Log.Unregister(consoleEventSink);
 				consoleEventSink = null;
@@ -66,9 +67,10 @@ namespace TAG.Networking.GatewayApi.Test
 		public async Task TestInitialize()
 		{
 			string Key = await RuntimeSettings.GetAsync("GatewayAPI.Key", string.Empty);
-			string Secret =  await RuntimeSettings.GetAsync("GatewayAPI.Secret", string.Empty);
+			string Secret = await RuntimeSettings.GetAsync("GatewayAPI.Secret", string.Empty);
+			string Token = await RuntimeSettings.GetAsync("GatewayAPI.Token", string.Empty);
 
-			this.client = new GatewayApiClient(Key, Secret, this.Europe,
+			this.client = new GatewayApiClient(Key, Secret, Token, this.Europe,
 				new ConsoleOutSniffer(BinaryPresentationMethod.Base64, LineEnding.NewLine));
 		}
 
@@ -82,7 +84,7 @@ namespace TAG.Networking.GatewayApi.Test
 		public virtual bool Europe => false;
 
 		[TestMethod]
-		public void TestMethod1()
+		public void Test_01_SendMessage()
 		{
 		}
 
