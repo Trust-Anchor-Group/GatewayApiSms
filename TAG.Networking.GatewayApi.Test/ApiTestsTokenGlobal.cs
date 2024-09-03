@@ -12,8 +12,11 @@ using Waher.Runtime.Settings;
 namespace TAG.Networking.GatewayApi.Test
 {
 	[TestClass]
-	public class ApiTests
+	public class ApiTestsTokenGlobal
 	{
+		private const string PhoneNr1 = "";	// TODO: Enter number to use for unit tests.
+		private const string PhoneNr2 = "";	// TODO: Enter number to use for unit tests.
+
 		private static FilesProvider? filesProvider = null;
 		private static ConsoleEventSink? consoleEventSink = null;
 
@@ -23,7 +26,7 @@ namespace TAG.Networking.GatewayApi.Test
 		public static async Task AssemblyInitialize(TestContext _)
 		{
 			Types.Initialize(
-				typeof(ApiTests).Assembly,
+				typeof(ApiTestsTokenGlobal).Assembly,
 				typeof(InternetContent).Assembly,
 				typeof(Database).Assembly,
 				typeof(FilesProvider).Assembly,
@@ -70,7 +73,7 @@ namespace TAG.Networking.GatewayApi.Test
 			string Secret = await RuntimeSettings.GetAsync("GatewayAPI.Secret", string.Empty);
 			string Token = await RuntimeSettings.GetAsync("GatewayAPI.Token", string.Empty);
 
-			this.client = new GatewayApiClient(Key, Secret, Token, this.Europe,
+			this.client = new GatewayApiClient(Key, Secret, Token, this.Europe, this.AuthenticationMethod,
 				new ConsoleOutSniffer(BinaryPresentationMethod.Base64, LineEnding.NewLine));
 		}
 
@@ -81,11 +84,21 @@ namespace TAG.Networking.GatewayApi.Test
 			this.client = null;
 		}
 
+		public virtual AuthenticationMethod AuthenticationMethod => AuthenticationMethod.Token;
 		public virtual bool Europe => false;
 
 		[TestMethod]
-		public void Test_01_SendMessage()
+		public async Task Test_01_SendSimpleMessage()
 		{
+			Assert.IsNotNull(this.client);
+			await this.client.SendSimpleMessage("Unit Test", "Testing", PhoneNr1, PhoneNr2);
+		}
+
+		[TestMethod]
+		public async Task Test_02_SendMessage()
+		{
+			Assert.IsNotNull(this.client);
+			await this.client.SendMessage("Unit Test", "Testing", PhoneNr1, PhoneNr2);
 		}
 
 	}
