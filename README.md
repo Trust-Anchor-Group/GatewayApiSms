@@ -25,6 +25,7 @@ be used, see the [IoT Gateway repository](https://github.com/PeterWaher/IoTGatew
 |:-----------------------------------------------------------------------------------|:------------|
 | [Waher.Content](https://www.nuget.org/packages/Waher.Content/)                     | Pluggable architecture for accessing, encoding and decoding Internet Content. Include nugets named `Waher.Content.*` to access features of specific Content Types. |
 | [Waher.Events](https://www.nuget.org/packages/Waher.Events/)                       | An extensible architecture for event logging in the application. |
+| [Waher.Events.Console](https://www.nuget.org/packages/Waher.Events.Console/)       | A library that outputs logged events to the console output. |
 | [Waher.IoTGateway](https://www.nuget.org/packages/Waher.IoTGateway/)               | Contains the [IoT Gateway](https://github.com/PeterWaher/IoTGateway) hosting environment. |
 | [Waher.Networking](https://www.nuget.org/packages/Waher.Networking/)               | Tools for working with communication, including troubleshooting. Include nugets named `Waher.Networking.*` if you need support for specific communication protocols. |
 | [Waher.Runtime.Inventory](https://www.nuget.org/packages/Waher.Runtime.Inventory/) | Maintains an inventory of type definitions in the runtime environment, and permits easy instantiation of suitable classes, and inversion of control (IoC). |
