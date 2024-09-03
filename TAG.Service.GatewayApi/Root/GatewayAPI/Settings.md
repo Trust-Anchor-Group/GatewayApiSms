@@ -11,26 +11,47 @@ Login: /Login.md
 
 ========================================================================
 
+{{
+if exists(Posted) then
+(
+	({
+	"ApiKey":Required(Str(PApiKey)),
+	"ApiSecret":Required(Str(PApiSecret)),
+	"ApiToken":Required(Str(PApiToken)),
+	"ApiEurope":Optional(Boolean(PApiEurope)),
+	"TestSender":Optional(Str(PTestSender)),
+	"TestRecipient":Optional(Str(PTestRecipient)),
+	"TestMessage":Optional(Str(PTestMessage))
+	}:=Posted) ??? BadRequest("Invalid Payload");
+
+	SetSetting("TAG.Service.GatewayApi.ApiKey",PApiKey);
+	SetSetting("TAG.Service.GatewayApi.ApiSecret",PApiSecret);
+	SetSetting("TAG.Service.GatewayApi.ApiToken",PApiToken);
+	SetSetting("TAG.Service.GatewayApi.ApiEurope",PApiEurope ?? false);
+	SetSetting("TAG.Service.GatewayApi.TestSender",PTestSender ?? "");
+	SetSetting("TAG.Service.GatewayApi.TestRecipient",PTestRecipient ?? "");
+	SetSetting("TAG.Service.GatewayApi.TestMessage",PTestMessage ?? "");
+
+	if !exists(PGatewayApiError) then PGatewayApiError:="";
+
+	TAG.Service.GatewayApi.ServiceConfiguration.InvalidateCurrent();
+
+	if !empty(PTestRecipient) and !empty(PTestMessage) then
+	(
+		PGatewayApiError:="";
+		TAG.Service.GatewayApi.GatewayApiService.SendSMS(PTestSender,PTestMessage,[PTestRecipient]) ??? PGatewayApiError:=Exception.Message;
+	);
+
+	SeeOther("Settings.md");
+);
+}}
+
 <form action="Settings.md" method="post">
 <fieldset>
 <legend>GatewayAPI settings</legend>
 
 The following settings are required by the integration of the Neuron(R) with the [GatewayAPI SMS transmission service](https://gatewayapi.com/). 
 By providing such an integration, SMS messages can be sent from the Neuron(R).
-
-{{
-if exists(Posted) then
-(
-	SetSetting("TAG.Service.GatewayApi.ApiKey",Str(Posted.ApiKey));
-	SetSetting("TAG.Service.GatewayApi.ApiSecret",Str(Posted.ApiSecret));
-	SetSetting("TAG.Service.GatewayApi.ApiToken",Str(Posted.ApiToken));
-	SetSetting("TAG.Service.GatewayApi.ApiEurope",Bool(Posted.ApiEurope));
-
-	TAG.Service.GatewayApi.ServiceConfiguration.InvalidateCurrent();
-
-	SeeOther("Settings.md");
-);
-}}
 
 <p>
 <label for="ApiKey">API Key:</label>  
@@ -52,6 +73,34 @@ if exists(Posted) then
 <input id="ApiEurope" name="ApiEurope" type="checkbox" {{GetSetting("TAG.Service.GatewayApi.ApiEurope",false) ? "checked" : ""}}/>
 <label for="ApiEurope">European Server</label>
 </p>
+
+<fieldset>
+<legend>Test Parameters</legend>
+
+<p>
+<label for="TestSender">Sender:</label>  
+<input type="text" id="TestSender" name="TestSender" value='{{GetSetting("TAG.Service.GatewayApi.TestSender","")}}' title="Sender used for testing parameters."/>
+</p>
+
+<p>
+<label for="TestRecipient">Recipient:</label>  
+<input type="text" id="TestRecipient" name="TestRecipient" value='{{GetSetting("TAG.Service.GatewayApi.TestRecipient","")}}' title="Recipient used for testing parameters."/>
+</p>
+
+<p>
+<label for="TestMessage">Message:</label>  
+<input type="text" id="TestMessage" name="TestMessage" value='{{GetSetting("TAG.Service.GatewayApi.TestMessage","")}}' title="Message used for testing parameters."/>
+</p>
+
+</fieldset>
+
+{{
+if exists(PGatewayApiError) && !empty(PGatewayApiError) then ]]
+<div class="error">
+((MarkdownEncode(PGatewayApiError) ))
+</div>
+[[
+}}
 
 <button type="submit" class="posButton">Apply</button>
 </fieldset>
