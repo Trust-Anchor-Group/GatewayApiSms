@@ -95,7 +95,8 @@ namespace TAG.Service.GatewayApi
 		/// <param name="Message">Message text.</param>
 		/// <param name="Recipients">Recipients to receive the message.</param>
 		/// <exception cref="ServiceUnavailableException">If service has not been configured properly.</exception>
-		public static async Task SendSMS(string Sender, string Message, params string[] Recipients)
+		/// <returns>Result from API</returns>
+		public static async Task<object> SendSMS(string Sender, string Message, params string[] Recipients)
 		{
 			ServiceConfiguration Configuration = await ServiceConfiguration.GetCurrent();
 			GatewayApiClient Client = CreateClient(Configuration);
@@ -105,7 +106,7 @@ namespace TAG.Service.GatewayApi
 
 			try
 			{
-				await Client.SendSimpleMessage(Sender, Message, Recipients);
+				return await Client.SendSimpleMessage(Sender, Message, Recipients);
 			}
 			finally
 			{
