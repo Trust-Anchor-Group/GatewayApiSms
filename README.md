@@ -41,7 +41,7 @@ If your Neuron(R) is connected to this network, you can install the package usin
 | Package information                                                                                                              ||
 |:-----------------|:---------------------------------------------------------------------------------------------------------------|
 | Package          | `TAG.Service.GatewayApi.package`                                                                               |
-| Installation key | `TBD`                                                                                                          |
+| Installation key | `qHh3N01htgWDSci38o+U1c4O76prAaZ54FjGbweFLUcHmWNZn1WtORx+87Z+xZFydk886sxDRBAAb900fba31cac92078bed72e8d89fda7e` |
 | More Information | TBD                                                                                                            |
 
 ## Development
