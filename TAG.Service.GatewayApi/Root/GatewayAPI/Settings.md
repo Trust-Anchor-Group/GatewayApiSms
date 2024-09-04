@@ -84,7 +84,7 @@ By providing such an integration, SMS messages can be sent from the Neuron(R).
 
 <p>
 <label for="TestRecipient">Recipient:</label>  
-<input type="text" id="TestRecipient" name="TestRecipient" value='{{GetSetting("TAG.Service.GatewayApi.TestRecipient","")}}' title="Recipient used for testing parameters."/>
+<input type="tel" id="TestRecipient" name="TestRecipient" value='{{GetSetting("TAG.Service.GatewayApi.TestRecipient","")}}' title="Recipient used for testing parameters."/>
 </p>
 
 <p>
