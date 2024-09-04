@@ -42,7 +42,7 @@ If your Neuron(R) is connected to this network, you can install the package usin
 |:-----------------|:---------------------------------------------------------------------------------------------------------------|
 | Package          | `TAG.Service.GatewayApi.package`                                                                               |
 | Installation key | `qHh3N01htgWDSci38o+U1c4O76prAaZ54FjGbweFLUcHmWNZn1WtORx+87Z+xZFydk886sxDRBAAb900fba31cac92078bed72e8d89fda7e` |
-| More Information | TBD                                                                                                            |
+| More Information | https://lab.tagroot.io/Community/Post/Service_for_sending_SMS_using_GatewayAPI                                 |
 
 ## Development
 
