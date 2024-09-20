@@ -23,14 +23,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Waher.Content" Version="2.6.11" />
-    <PackageReference Include="Waher.Events" Version="1.2.0" />
-    <PackageReference Include="Waher.IoTGateway" Version="2.0.0" />
-    <PackageReference Include="Waher.Networking" Version="2.2.7" />
-    <PackageReference Include="Waher.Persistence" Version="1.10.1" />
-    <PackageReference Include="Waher.Runtime.Inventory" Version="1.1.5" />
+    <PackageReference Include="Waher.Content" Version="2.6.12" />
+    <PackageReference Include="Waher.Events" Version="1.2.1" />
+    <PackageReference Include="Waher.IoTGateway" Version="2.0.1" />
+    <PackageReference Include="Waher.Networking" Version="2.3.0" />
+    <PackageReference Include="Waher.Persistence" Version="1.10.2" />
+    <PackageReference Include="Waher.Runtime.Inventory" Version="1.1.6" />
     <PackageReference Include="Waher.Runtime.Settings" Version="1.1.1" />
-    <PackageReference Include="Waher.Script" Version="2.6.9" />
+    <PackageReference Include="Waher.Script" Version="2.6.10" />
   </ItemGroup>
 
   <ItemGroup>
