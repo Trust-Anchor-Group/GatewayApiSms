@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using TAG.Networking.GatewayApi;
 using Waher.IoTGateway;
+using Waher.Networking;
 using Waher.Networking.HTTP;
 using Waher.Networking.Sniffers;
 
@@ -20,12 +21,12 @@ namespace TAG.Service.GatewayApi
 		/// <summary>
 		/// Sniffable object that can be sniffed on dynamically.
 		/// </summary>
-		private static readonly Sniffable sniffable = new Sniffable();
+		private static readonly CommunicationLayer observable = new CommunicationLayer(false);
 
 		/// <summary>
-		/// Sniffer proxy, forwarding sniffer events to <see cref="sniffable"/>.
+		/// Sniffer proxy, forwarding sniffer events to <see cref="observable"/>.
 		/// </summary>
-		private static readonly SnifferProxy snifferProxy = new SnifferProxy(sniffable);
+		private static readonly SnifferProxy snifferProxy = new SnifferProxy(observable);
 
 		/// <summary>
 		/// Service module for the GatewayAPI service integration.
@@ -125,7 +126,7 @@ namespace TAG.Service.GatewayApi
 		public static string RegisterSniffer(string SnifferId, HttpRequest Request,
 			string UserVariable, params string[] Privileges)
 		{
-			return Gateway.AddWebSniffer(SnifferId, Request, sniffable, UserVariable, Privileges);
+			return Gateway.AddWebSniffer(SnifferId, Request, observable, UserVariable, Privileges);
 		}
 
 	}

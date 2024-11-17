@@ -7,6 +7,7 @@ using System.Web;
 using Waher.Content;
 using Waher.Content.Getters;
 using Waher.Content.Json;
+using Waher.Networking;
 using Waher.Networking.Sniffers;
 using Waher.Security;
 
@@ -39,7 +40,7 @@ namespace TAG.Networking.GatewayApi
 	/// <summary>
 	/// Client managing communication with GatewayAPI.com.
 	/// </summary>
-	public class GatewayApiClient : Sniffable, IDisposable
+	public class GatewayApiClient : CommunicationLayer, IDisposable
 	{
 		private const string apiEndpoint = "https://gatewayapi.com/";
 		private const string apiEndpointEurope = "https://gatewayapi.eu/";
@@ -87,7 +88,7 @@ namespace TAG.Networking.GatewayApi
 		/// <param name="Sniffers">Any sniffers associated with the client.</param>
 		public GatewayApiClient(string Key, string Secret, string Token, string Endpoint,
 			AuthenticationMethod AuthMechanism, params ISniffer[] Sniffers)
-			: base(Sniffers)
+			: base(false, Sniffers)
 		{
 			this.key = Key;
 			this.secret = Secret;
@@ -300,7 +301,7 @@ namespace TAG.Networking.GatewayApi
 				sb.Append("\r\nAccept: ");
 				sb.Append(JsonCodec.DefaultContentType);
 
-				this.TransmitText(sb.ToString());
+				await this.TransmitText(sb.ToString());
 			}
 
 			object Result = null;
@@ -312,7 +313,7 @@ namespace TAG.Networking.GatewayApi
 					new KeyValuePair<string, string>("Accept", JsonCodec.DefaultContentType));
 
 				if (this.HasSniffers)
-					this.ReceiveText(JSON.Encode(Result, true));
+					await this.ReceiveText(JSON.Encode(Result, true));
 			}
 			catch (WebException ex)
 			{
@@ -350,7 +351,7 @@ namespace TAG.Networking.GatewayApi
 
 			if (this.HasSniffers)
 			{
-				this.TransmitText("POST " + Url + "\r\nAuthorization: " + Authorization +
+				await this.TransmitText("POST " + Url + "\r\nAuthorization: " + Authorization +
 					"\r\nAccept: " + JsonCodec.DefaultContentType + "\r\nContent-Type: " +
 					JsonCodec.DefaultContentType + "\r\n\r\n" + JSON.Encode(Request, true));
 			}
@@ -365,7 +366,7 @@ namespace TAG.Networking.GatewayApi
 					new KeyValuePair<string, string>("Accept", JsonCodec.DefaultContentType));
 
 				if (this.HasSniffers)
-					this.ReceiveText(JSON.Encode(Result, true));
+					await this.ReceiveText(JSON.Encode(Result, true));
 			}
 			catch (WebException ex)
 			{
