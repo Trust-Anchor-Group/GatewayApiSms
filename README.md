@@ -10,9 +10,9 @@ The solution contains the following C# projects:
 
 | Project                          | Framework         | Description |
 |:---------------------------------|:------------------|:------------|
-| `TAG.Networking.GatewayApi`      | .NET Standard 2.0 | Communication library that implements the GatewayAPI.com REST API. |
+| `TAG.Networking.GatewayApi`      | .NET Standard 2.1 | Communication library that implements the GatewayAPI.com REST API. |
 | `TAG.Networking.GatewayApi.Test` | .NET 8            | Unit tests for the `TAG.Networking.GatewayApi` library.            |
-| `TAG.Service.GatewayApi`         | .NET Standard 2.0 | Service module that integrates GatewayAPI.com into a Neuron(R). Provides a configuration page and script extension. |
+| `TAG.Service.GatewayApi`         | .NET Standard 2.1 | Service module that integrates GatewayAPI.com into a Neuron(R). Provides a configuration page and script extension. |
 
 Nugets
 ---------

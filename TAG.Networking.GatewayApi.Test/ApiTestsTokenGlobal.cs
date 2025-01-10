@@ -56,8 +56,11 @@ namespace TAG.Networking.GatewayApi.Test
 		{
 			await Types.StopAllModules();
 
-			filesProvider?.Dispose();
-			filesProvider = null;
+			if (filesProvider is not null)
+			{
+				await filesProvider.DisposeAsync();
+				filesProvider = null;
+			}
 
 			if (consoleEventSink is not null)
 			{

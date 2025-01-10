@@ -301,7 +301,7 @@ namespace TAG.Networking.GatewayApi
 				sb.Append("\r\nAccept: ");
 				sb.Append(JsonCodec.DefaultContentType);
 
-				await this.TransmitText(sb.ToString());
+				this.TransmitText(sb.ToString());
 			}
 
 			object Result = null;
@@ -313,7 +313,7 @@ namespace TAG.Networking.GatewayApi
 					new KeyValuePair<string, string>("Accept", JsonCodec.DefaultContentType));
 
 				if (this.HasSniffers)
-					await this.ReceiveText(JSON.Encode(Result, true));
+					this.ReceiveText(JSON.Encode(Result, true));
 			}
 			catch (WebException ex)
 			{
@@ -351,7 +351,7 @@ namespace TAG.Networking.GatewayApi
 
 			if (this.HasSniffers)
 			{
-				await this.TransmitText("POST " + Url + "\r\nAuthorization: " + Authorization +
+				this.TransmitText("POST " + Url + "\r\nAuthorization: " + Authorization +
 					"\r\nAccept: " + JsonCodec.DefaultContentType + "\r\nContent-Type: " +
 					JsonCodec.DefaultContentType + "\r\n\r\n" + JSON.Encode(Request, true));
 			}
@@ -366,7 +366,7 @@ namespace TAG.Networking.GatewayApi
 					new KeyValuePair<string, string>("Accept", JsonCodec.DefaultContentType));
 
 				if (this.HasSniffers)
-					await this.ReceiveText(JSON.Encode(Result, true));
+					this.ReceiveText(JSON.Encode(Result, true));
 			}
 			catch (WebException ex)
 			{

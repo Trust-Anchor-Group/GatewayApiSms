@@ -46,12 +46,13 @@ namespace TAG.Service.GatewayApi
 		/// <summary>
 		/// Method called before unloading the module and stopping the broker.
 		/// </summary>
-		public Task Stop()
+		public async Task Stop()
 		{
-			xmlFileSniffer?.Dispose();
-			xmlFileSniffer = null;
-
-			return Task.CompletedTask;
+			if (!(xmlFileSniffer is null))
+			{
+				await xmlFileSniffer.DisposeAsync();
+				xmlFileSniffer = null;
+			}
 		}
 
 		/// <summary>
@@ -70,13 +71,10 @@ namespace TAG.Service.GatewayApi
 			if (!Configuration.IsWellDefined)
 				return null;
 
-			if (xmlFileSniffer is null)
-			{
-				xmlFileSniffer = new XmlFileSniffer(Gateway.AppDataFolder + "GatewayApi" + Path.DirectorySeparatorChar +
-					"Log %YEAR%-%MONTH%-%DAY%T%HOUR%.xml",
-					Gateway.AppDataFolder + "Transforms" + Path.DirectorySeparatorChar + "SnifferXmlToHtml.xslt",
-					7, BinaryPresentationMethod.Base64);
-			}
+			xmlFileSniffer ??= new XmlFileSniffer(Gateway.AppDataFolder + "GatewayApi" + Path.DirectorySeparatorChar +
+				"Log %YEAR%-%MONTH%-%DAY%T%HOUR%.xml",
+				Gateway.AppDataFolder + "Transforms" + Path.DirectorySeparatorChar + "SnifferXmlToHtml.xslt",
+				7, BinaryPresentationMethod.Base64);
 
 			return new GatewayApiClient(Configuration.ApiKey, Configuration.ApiSecret, Configuration.ApiToken, Configuration.ApiEurope,
 				AuthenticationMethod.Token, snifferProxy);
