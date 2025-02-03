@@ -308,9 +308,13 @@ namespace TAG.Networking.GatewayApi
 
 			try
 			{
-				Result = await InternetContent.GetAsync(new Uri(Url),
+				ContentResponse Content = await InternetContent.GetAsync(new Uri(Url),
 					new KeyValuePair<string, string>("Authorization", Authorization),
 					new KeyValuePair<string, string>("Accept", JsonCodec.DefaultContentType));
+
+				Content.AssertOk();
+
+				Result = Content.Decoded;
 
 				if (this.HasSniffers)
 					this.ReceiveText(JSON.Encode(Result, true));
@@ -360,10 +364,13 @@ namespace TAG.Networking.GatewayApi
 
 			try
 			{
-				Result = await InternetContent.PostAsync(new Uri(Url),
+				ContentResponse Content = await InternetContent.PostAsync(new Uri(Url),
 					JSON.Encode(Request, false),
 					new KeyValuePair<string, string>("Authorization", Authorization),
 					new KeyValuePair<string, string>("Accept", JsonCodec.DefaultContentType));
+				Content.AssertOk();
+
+				Result = Content.Decoded;
 
 				if (this.HasSniffers)
 					this.ReceiveText(JSON.Encode(Result, true));
