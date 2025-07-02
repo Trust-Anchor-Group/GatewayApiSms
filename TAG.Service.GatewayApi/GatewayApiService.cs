@@ -105,7 +105,7 @@ namespace TAG.Service.GatewayApi
 
 			try
 			{
-				return await Client.SendSimpleMessage(Sender, Message, Recipients);
+				return await Client.SendMessage(Sender, Message, Recipients);
 			}
 			finally
 			{
