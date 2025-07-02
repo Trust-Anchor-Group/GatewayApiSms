@@ -261,6 +261,7 @@ namespace TAG.Networking.GatewayApi
 			sb.Append("rest/mtsms?message=");
 			sb.Append(HttpUtility.UrlEncode(Message));
 			sb.Append("&sender=" + HttpUtility.UrlEncode(Sender));
+			sb.Append("&encoding=UCS2");
 
 			int i = 0;
 			List<object> Recipients2 = new List<object>();
@@ -353,6 +354,7 @@ namespace TAG.Networking.GatewayApi
 			Dictionary<string, object> Request = new Dictionary<string, object>()
 			{
 				{ "sender", Sender },
+				{ "encoding", "UCS2" },
 				{ "message", Message },
 				{ "recipients", Recipients2.ToArray() }
 			};
@@ -370,10 +372,16 @@ namespace TAG.Networking.GatewayApi
 
 			try
 			{
-				ContentResponse Content = await InternetContent.PostAsync(new Uri(Url),
-					JSON.Encode(Request, false),
+				Uri Uri = new Uri(Url);
+				ContentBinaryResponse BinaryContent = await InternetContent.PostAsync(Uri,
+					Encoding.UTF8.GetBytes(JSON.Encode(Request, false)),
+					JsonCodec.DefaultContentType + "; charset=utf-8",
 					new KeyValuePair<string, string>("Authorization", Authorization),
 					new KeyValuePair<string, string>("Accept", JsonCodec.DefaultContentType));
+				BinaryContent.AssertOk();
+
+				ContentResponse Content = await InternetContent.DecodeAsync(BinaryContent.ContentType,
+					BinaryContent.Encoded, Uri);
 				Content.AssertOk();
 
 				Result = Content.Decoded;

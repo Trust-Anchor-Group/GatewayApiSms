@@ -14,7 +14,7 @@ namespace TAG.Networking.GatewayApi.Test
 	[TestClass]
 	public class ApiTestsTokenGlobal
 	{
-		private const string PhoneNr1 = "";	// TODO: Enter number to use for unit tests.
+		private const string PhoneNr1 = "+56958811437";	// TODO: Enter number to use for unit tests.
 		private const string PhoneNr2 = "";	// TODO: Enter number to use for unit tests.
 
 		private static FilesProvider? filesProvider = null;
