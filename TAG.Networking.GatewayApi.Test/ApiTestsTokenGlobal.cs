@@ -104,5 +104,19 @@ namespace TAG.Networking.GatewayApi.Test
 			await this.client.SendMessage("Unit Test", "Testing", PhoneNr1, PhoneNr2);
 		}
 
+		[TestMethod]
+		public async Task Test_03_SendSimpleMessage_NonAsciiCharacters()
+		{
+			Assert.IsNotNull(this.client);
+			await this.client.SendSimpleMessage("Unit Test", "åäö ÅÄÖ éñã ÉÑÃ", PhoneNr1, PhoneNr2);
+		}
+
+		[TestMethod]
+		public async Task Test_04_SendMessage_NonAsciiCharacters()
+		{
+			Assert.IsNotNull(this.client);
+			await this.client.SendMessage("Unit Test", "åäö ÅÄÖ éñã ÉÑÃ", PhoneNr1, PhoneNr2);
+		}
+
 	}
 }

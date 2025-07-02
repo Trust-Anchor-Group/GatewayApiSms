@@ -267,6 +267,9 @@ namespace TAG.Networking.GatewayApi
 
 			foreach (string Recipient in Recipients)
 			{
+				if (string.IsNullOrEmpty(Recipient))
+					continue;
+
 				long Nr = PhoneNumberToLong(Recipient);
 
 				sb.Append("&recipients.");
@@ -338,6 +341,9 @@ namespace TAG.Networking.GatewayApi
 
 			foreach (string Recipient in Recipients)
 			{
+				if (string.IsNullOrEmpty(Recipient))
+					continue;
+
 				Recipients2.Add(new Dictionary<string, object>()
 				{
 					{ "msisdn", PhoneNumberToLong(Recipient) }
