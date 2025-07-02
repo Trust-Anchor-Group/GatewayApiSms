@@ -365,7 +365,8 @@ namespace TAG.Networking.GatewayApi
 			{
 				this.TransmitText("POST " + Url + "\r\nAuthorization: " + Authorization +
 					"\r\nAccept: " + JsonCodec.DefaultContentType + "\r\nContent-Type: " +
-					JsonCodec.DefaultContentType + "\r\n\r\n" + JSON.Encode(Request, true));
+					JsonCodec.DefaultContentType + "; charset=utf-8\r\n\r\n" + 
+					JSON.Encode(Request, true));
 			}
 
 			object Result = null;
